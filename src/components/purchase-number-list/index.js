@@ -8,6 +8,7 @@ class PurchaseNumberList extends React.Component {
   render() {
     return (
       <div>
+        <p>구입한 로또 번호</p>
         <ToggleButton />
       </div>
     );
