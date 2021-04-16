@@ -1,5 +1,5 @@
 import React from 'react';
-import MoneyInput from './components/money-input/index';
+import MoneyInput from './components/money-input';
 import PurchaseNumberList from './components/purchase-number-list';
 import WinningNumber from './components/winning-number';
 

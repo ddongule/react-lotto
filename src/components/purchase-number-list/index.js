@@ -1,5 +1,6 @@
 import React from 'react';
-import ToggleButton from '../../utils/toggle';
+import { getRandomNumber } from '../../utils/random-number';
+import ToggleButton from '../util-component/toggle';
 import PurchaseNumberItem from './purchase-number-item';
 
 class PurchaseNumberList extends React.Component {
@@ -15,6 +16,11 @@ class PurchaseNumberList extends React.Component {
     this.setState({
       showBalls: !this.state.showBalls,
     });
+    this.getAutoTicket();
+  }
+
+  getAutoTicket() {
+    console.log(getRandomNumber(1, 45));
   }
 
   render() {
