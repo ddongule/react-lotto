@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import NumberInput from '../util-component/number-input/index';
 import Button from '../util-component/button/index';
-import { LOTTERY_BALL_LENGTH } from '../../constants/number';
+import { BONUS_BALL_LENGTH, LOTTERY_BALL_LENGTH } from '../../constants/number';
 import './style.scss';
 
 class WinningNumber extends React.Component {
   constructor(props) {
     super(props);
+    this.inputRef = React.createRef();
+    this.state = {
+      inputArray: [...new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH)],
+    };
   }
 
   onWinningNumberSubmit(e) {
@@ -24,12 +28,36 @@ class WinningNumber extends React.Component {
     this.props.onModalButtonClick();
   }
 
+  onChangeWinningNumber(e, index) {
+    if (this.state.inputArray.includes(e.target.value)) {
+      alert('다시너어줘!!!!!!');
+      e.target.value = '';
+      return;
+    }
+    const newArray = [...this.state.inputArray];
+    newArray[index] = e.target.value;
+
+    this.setState({
+      inputArray: newArray,
+    });
+  }
+
   render() {
     return (
       <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
         <div className='winning-number-form'>
-          {[...Array(LOTTERY_BALL_LENGTH)].map(() => {
-            return <NumberInput min='1' max='45' key={uuidv4()} customClass={'winning-number'} />;
+          {[...this.state.inputArray].map((number, index) => {
+            return (
+              <NumberInput
+                ref={this.inputRef}
+                min='1'
+                max='45'
+                key={uuidv4()}
+                customClass={'winning-number'}
+                value={number && number}
+                onChangeNumber={(e) => this.onChangeWinningNumber(e, index)}
+              />
+            );
           })}
           <NumberInput min='1' max='45' key={uuidv4()} customClass={'bonus-number'} />
         </div>
