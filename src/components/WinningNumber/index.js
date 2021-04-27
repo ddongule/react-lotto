@@ -76,6 +76,23 @@ class WinningNumber extends React.Component {
     });
   }
 
+  onChangeInputNumber(e, index) {
+    let inputValue = e.target.value;
+
+    if (inputValue.length > 2) {
+      inputValue = Number(inputValue.slice(0, 2));
+
+      const newWinningNumberInputs = [...this.state.winningNumberInputs];
+      newWinningNumberInputs.splice(index, 1, inputValue);
+      this.setState({
+        winningNumberInputs: newWinningNumberInputs,
+        currentInputIndex: index,
+      });
+    }
+
+    console.log(this.state.winningNumberInputs);
+  }
+
   render() {
     return (
       <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
@@ -94,6 +111,7 @@ class WinningNumber extends React.Component {
                 }
                 defaultValue={number ? number : ''}
                 onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
+                onChangeInput={(e) => this.onChangeInputNumber(e, index)}
               />
             );
           })}
